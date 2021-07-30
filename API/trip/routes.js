@@ -1,5 +1,10 @@
 const express = require("express");
-const { deleteTrip, fetchTrip, tripFetch } = require("./controllers");
+const {
+  deleteTrip,
+  fetchTrip,
+  tripFetch,
+  createTrip,
+} = require("./controllers");
 const passport = require("passport");
 
 const router = express.Router();
@@ -19,11 +24,14 @@ router.param("tripId", async (req, res, next, tripId) => {
 
 router.get("/", tripFetch);
 
-// Zamami don't forget the authentication problem!!!
+// Zamami don't forget the authentication problem!!!...... 7ather from my eyes ^_^
 router.delete(
   "/:tripId",
   passport.authenticate("jwt", { session: false }),
   deleteTrip
 );
+
+// create a new trip
+router.post("/", passport.authenticate("jwt", { session: false }), createTrip);
 
 module.exports = router;
