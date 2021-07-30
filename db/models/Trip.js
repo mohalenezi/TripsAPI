@@ -1,5 +1,4 @@
-const SequelizeSlugify = require("sequelize-slugify");
-const { Sequelize } = require("sequelize");
+// const SequelizeSlugify = require("sequelize-slugify");
 
 module.exports = (sequelize, DataTypes) => {
   const Trip = sequelize.define("Trip", {
@@ -7,6 +6,6 @@ module.exports = (sequelize, DataTypes) => {
     description: { type: DataTypes.STRING, allowNull: false },
     image: { type: DataTypes.STRING },
   });
-  SequelizeSlugify.slugifyModel(Trip, { source: ["title"] });
+  // SequelizeSlugify.slugifyModel(Trip, { source: ["title"] });
   return Trip;
 };
