@@ -33,12 +33,34 @@ exports.createTrip = async (req, res, next) => {
 };
 
 exports.deleteTrip = async (req, res, next) => {
+  const foundTrip = await Trip.findByPk(req.trip.userId);
   try {
-    const foundTrip = req.trip;
-
-    await foundTrip.destroy();
-    res.status(204).end();
+    if (foundTrip.userId === req.user.id) {
+      await foundTrip.destroy();
+      res.status(204).end();
+    } else {
+      const err = new Error("unauth ");
+      err.status = 401;
+      return next(err);
+    }
   } catch (error) {
     next(error);
   }
 };
+
+// exports.deleteTrip = async (req, res, next) => {
+//   const foundTrip = await Trip.findByPk(req.trip.tripId);
+//   // await console.log(foundTrip.userId);
+//   try {
+//     if (foundTrip.userId === req.user.id) {
+//       await req.product.destroy();
+//       res.status(204).end();
+//     } else {
+//       const err = new Error("unauth ");
+//       err.status = 401;
+//       return next(err);
+//     }
+//   } catch (error) {
+//     next(error);
+//   }
+// };
