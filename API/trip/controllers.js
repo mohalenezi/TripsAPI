@@ -30,3 +30,14 @@ exports.createTrip = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.deleteTrip = async (req, res, next) => {
+  try {
+    const foundTrip = req.trip;
+
+    await foundTrip.destroy();
+    res.status(204).end();
+  } catch (error) {
+    next(error);
+  }
+};
