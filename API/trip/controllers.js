@@ -33,13 +33,14 @@ exports.createTrip = async (req, res, next) => {
 };
 
 exports.deleteTrip = async (req, res, next) => {
+  // Do you need this line?
   const foundTrip = await Trip.findByPk(req.trip.userId);
   try {
     if (foundTrip.userId === req.user.id) {
       await foundTrip.destroy();
       res.status(204).end();
     } else {
-      const err = new Error("unauth ");
+      const err = new Error("unauth "); // give a more meaningful message shda3wa -.-
       err.status = 401;
       return next(err);
     }
