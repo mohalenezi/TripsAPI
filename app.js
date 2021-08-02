@@ -23,7 +23,7 @@ passport.use(jwtStrategy);
 // CRUD Routes
 app.use(userRoutes);
 app.use("/trips", tripRoutes);
-app.use("/profile", profileRoutes);
+app.use("/profiles", profileRoutes);
 
 // Store media
 app.use("/media", express.static("media"));

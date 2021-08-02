@@ -1,5 +1,5 @@
 const express = require("express");
-const { updateProfile, fetchProfile } = require("./controllers");
+const { updateProfile, fetchProfile, profileFetch } = require("./controllers");
 const passport = require("passport");
 const multer = require("multer");
 
@@ -34,5 +34,7 @@ router.put(
   upload.single("image"),
   updateProfile
 );
+
+router.get("/", profileFetch);
 
 module.exports = router;
