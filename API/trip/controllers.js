@@ -33,13 +33,16 @@ exports.createTrip = async (req, res, next) => {
 };
 
 exports.deleteTrip = async (req, res, next) => {
-  const foundTrip = await Trip.findByPk(req.trip.userId);
+  // const foundTrip = await Trip.findByPk(req.trip.id);
+
   try {
-    if (foundTrip.userId === req.user.id) {
-      await foundTrip.destroy();
+    if (req.trip.userId === req.user.id) {
+      await req.trip.destroy();
       res.status(204).end();
     } else {
-      const err = new Error("unauth ");
+      const err = new Error(
+        "Unauthorized. You cannot delete another user's trip."
+      );
       err.status = 401;
       return next(err);
     }
@@ -50,7 +53,7 @@ exports.deleteTrip = async (req, res, next) => {
 
 exports.updateTrip = async (req, res, next) => {
   try {
-    if (req.file) req.body.image = `http://${req.get("host")}/${eq.file.path}`;
+    if (req.file) req.body.image = `http://${req.get("host")}/${req.file.path}`;
     const updatedTrip = await req.trip.update(req.body);
     res.json(updatedTrip);
   } catch (error) {

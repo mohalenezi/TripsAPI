@@ -6,6 +6,7 @@ const { jwtStrategy, localStrategy } = require("./middleware/passport");
 // Routes
 const userRoutes = require("./API/user/routes");
 const tripRoutes = require("./API/trip/routes");
+const profileRoutes = require("./API/profile/routes");
 
 // Database
 const db = require("./db/models");
@@ -22,6 +23,10 @@ passport.use(jwtStrategy);
 // CRUD Routes
 app.use(userRoutes);
 app.use("/trips", tripRoutes);
+app.use("/profile", profileRoutes);
+
+// Store media
+app.use("/media", express.static("media"));
 
 // Error Middleware
 app.use((err, req, res, next) => {
