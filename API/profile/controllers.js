@@ -9,6 +9,17 @@ exports.fetchProfile = async (profileId, next) => {
   }
 };
 
+exports.profileFetch = async (req, res, next) => {
+  try {
+    const profiles = await Profile.findAll({
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+    });
+    res.json(profiles);
+  } catch (error) {
+    next(error);
+  }
+};
+
 exports.updateProfile = async (req, res, next) => {
   try {
     const foundProfile = req.profile;
