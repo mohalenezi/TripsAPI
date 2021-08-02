@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { User } = require("../../db/models");
+const { User, Profile } = require("../../db/models");
 const { JWT_SECERT, JWT_EXPIRATION_MS } = require("../../config/keys");
 
 exports.signup = async (req, res, next) => {
@@ -9,7 +9,10 @@ exports.signup = async (req, res, next) => {
   try {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     req.body.password = hashedPassword;
+
     const newUser = await User.create(req.body);
+    await Profile.create({ image: "", bio: "", userId: newUser.id });
+
     const payload = {
       id: newUser.id,
       username: newUser.username,
