@@ -7,8 +7,18 @@ const {
   updateTrip,
 } = require("./controllers");
 const passport = require("passport");
+const multer = require("multer");
 
 const router = express.Router();
+
+// Multer
+const storage = multer.diskStorage({
+  destination: "./media",
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`);
+  },
+});
+const upload = multer({ storage });
 
 router.param("tripId", async (req, res, next, tripId) => {
   const trip = await fetchTrip(tripId, next);
@@ -33,7 +43,12 @@ router.delete(
 );
 
 // create a new trip
-router.post("/", passport.authenticate("jwt", { session: false }), createTrip);
+router.post(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  upload.single("image"),
+  createTrip
+);
 
 // update a new trip
 router.put(
