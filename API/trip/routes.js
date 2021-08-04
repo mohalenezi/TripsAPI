@@ -10,6 +10,7 @@ const passport = require("passport");
 const multer = require("multer");
 
 const router = express.Router();
+// ** move multer to the middleware folder so you can clean the routes... and if you are using it somewhere else will be much easier and cleaner to use right?
 
 // Multer
 const storage = multer.diskStorage({
@@ -36,6 +37,7 @@ router.param("tripId", async (req, res, next, tripId) => {
 router.get("/", tripFetch);
 
 // Zamami don't forget the authentication problem!!!...... 7ather from my eyes ^_^
+// this comment made me laugh thanks😂👆🏻 if you solved the problem please remove the comment
 router.delete(
   "/:tripId",
   passport.authenticate("jwt", { session: false }),

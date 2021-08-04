@@ -34,7 +34,7 @@ exports.createTrip = async (req, res, next) => {
 
 exports.deleteTrip = async (req, res, next) => {
   // const foundTrip = await Trip.findByPk(req.trip.id);
-
+  // remove the comment 👆🏻
   try {
     if (req.trip.userId === req.user.id) {
       await req.trip.destroy();
