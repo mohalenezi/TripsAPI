@@ -17,7 +17,7 @@ router.param("profileId", async (req, res, next, profileId) => {
     next(error);
   }
 });
-
+// if you moved multer to middleware the profile and the trip routes will be much cleaner!
 // Multer
 const storage = multer.diskStorage({
   destination: "./media",

@@ -11,13 +11,14 @@ exports.signup = async (req, res, next) => {
     req.body.password = hashedPassword;
 
     const newUser = await User.create(req.body);
+    // 👇🏻 please clean this up
     await Profile.create({
       image: "",
       bio: "",
       userId: newUser.id,
       username: newUser.username,
     });
-
+    // 👆🏻
     const payload = {
       id: newUser.id,
       username: newUser.username,

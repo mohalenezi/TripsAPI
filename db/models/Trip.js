@@ -1,5 +1,5 @@
 // const SequelizeSlugify = require("sequelize-slugify");
-
+//*****remove the comments*******
 module.exports = (sequelize, DataTypes) => {
   const Trip = sequelize.define("Trip", {
     title: { type: DataTypes.STRING, allowNull: false },
