@@ -51,4 +51,12 @@ db.Trip.belongsTo(db.User, { as: "user" });
 db.User.hasOne(db.Profile, { foreignKey: "userId" });
 db.Profile.belongsTo(db.User, { as: "user" });
 
+// // QA - Trip relationship
+// db.Trip.hasMany(db.QA, { foreignKey: "tripId", as: "questions" });
+// db.QA.belongsTo(db.Trip, { as: "trip" });
+
+// // QA - User relationship
+// db.QA.hasOne(db.User, { foreignKey: "questionerId" });
+// db.User.belongsTo(db.QA);
+
 module.exports = db;
